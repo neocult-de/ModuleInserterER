@@ -1,3 +1,5 @@
+(This is a modified version of the original moduleinserter mod by Choumiko. It is a non-conflict version with an added check for the module inserter item so it doesn´t overwrite other Mods (like Rail Signal Planner or Artillery Bombardment Remote))
+
 Sick of having to put dozens of modules in your drills, assemblers, etc. by hand?
 
 Configure ModuleInserter with a setup for machines, mark the area and watch your Pocketbots do the hard work
