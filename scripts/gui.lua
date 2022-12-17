@@ -3,6 +3,9 @@ local mod_gui = require("__core__.lualib.mod-gui")
 local table = require("__flib__.table")
 local gui = require("__flib__.gui-beta")
 
+local module_button_prefix = "MIChooseModuleButton_"
+local config_button_prefix = "MIConfigButton_"
+
 local function export_config(config_data, name)
     local to_bp_entities = function(data)
         local entities = {}
@@ -125,7 +128,7 @@ mi_gui.templates = {
         }
     end,
     module_button = function(index, module, assembler)
-        return {type = "choose-elem-button", style = "slot_button", name = index,
+        return {type = "choose-elem-button", style = "slot_button", name = module_button_prefix .. index,
                 actions = {on_elem_changed = {gui = "main", action = "choose_module"}},
                 elem_type = "item", elem_filters = {{filter = "type", type = "module"}},
                 item = module,
@@ -138,7 +141,7 @@ mi_gui.templates = {
         local assembler = config.from
         local slots = assembler and global.nameToSlots[assembler] or 2
         local modules = config.to or {}
-        local row = {type = "flow", direction = "horizontal", name = index, style_mods = {horizontal_spacing = 0}, children = {
+        local row = {type = "flow", direction = "horizontal", name =  config_button_prefix .. index, style_mods = {horizontal_spacing = 0}, children = {
                         mi_gui.templates.assembler_button(assembler),
                         {type = "table", column_count = 10, name = "modules",  children = {},
                             style_mods = {
@@ -613,7 +616,8 @@ mi_gui.handlers = {
             local config_tmp = pdata.config_tmp
             local config_rows = pdata.gui.main.config_rows
             if not (config_rows and config_rows.valid) then return end
-            local index = tonumber(e.element.parent.name)
+            local s, _ = e.element.parent.name:gsub("%D","")
+            local index = tonumber(s)
             local element = e.element
             local elem_value = element.elem_value
 
@@ -644,8 +648,10 @@ mi_gui.handlers = {
             local config_tmp = e.pdata.config_tmp
             local config_rows = e.pdata.gui.main.config_rows
             if not (config_rows and config_rows.valid) then return end
-            local index = tonumber(e.element.parent.parent.name)
-            local slot = tonumber(e.element.name)
+            local s1, _ = e.element.parent.parent.name:gsub("%D","")
+            local index = tonumber(s1)
+            local s2, _ = e.element.name:gsub("%D","")
+            local slot = tonumber(s2)
 
 
             local config = config_tmp[index]

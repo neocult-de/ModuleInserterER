@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 5.2.6
+Date: 2022-03-16
+  Changes:
+    - Added a prefix to certain GUI Elements to avoid event collisions with other mods/scenarios.
+---------------------------------------------------------------------------------------------------
 Version: 5.2.4
 Date: 2021-01-06
   Changes:
